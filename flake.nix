@@ -10,13 +10,13 @@
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
   };
 
-  outputs = { self, nixpkgs, flake-utils }:
-
+  outputs = { self, nixpkgs, flake-utils, fenix }:
     flake-utils.lib.eachDefaultSystem (system:
       let pkgs = nixpkgs.legacyPackages.${system};
       in {
         packages.x86_64-linux.default =
           fenix.packages.x86_64-linux.minimal.toolchain;
-        devShell = import ./shell.nix { inherit pkgs system; };
+        nixpkgs.overlays = [ fenix.overlays.default ];
+        devShell = import ./shell.nix { inherit pkgs system fenix; };
       });
 }

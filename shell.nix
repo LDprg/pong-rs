@@ -1,15 +1,11 @@
 { system ? builtins.currentSystem, pkgs ? import <nixpkgs> { inherit system; }
-}:
+, fenix }:
 pkgs.mkShell {
-  nixpkgs.overlays = [ fenix.overlays.default ];
-  nativeBuildInputs = with pkgs; [
-    (fenix.complete.withComponents [
-      "cargo"
-      "clippy"
-      "rust-src"
-      "rustc"
-      "rustfmt"
-    ])
-    rust-analyzer-nightly
+  packages.x86_64-linux.default = fenix.packages.x86_64-linux.minimal.toolchain;
+  pkgs.overlays = [ fenix.overlays.default ];
+  buildInputs = [
+    (fenix.fromToolchainFile {
+      dir = ./.;
+    })
   ];
 }
