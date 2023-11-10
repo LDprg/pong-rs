@@ -1,3 +1,0 @@
-[target.x86_64-unknown-linux-gnu]
-linker = "clang"
-rustflags = ["-C", "link-arg=-fuse-ld=/nix/store/fbxq24h91gblfzwirpjgppji5y08id9l-mold-2.3.1/bin/mold"]

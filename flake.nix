@@ -46,17 +46,15 @@
 
           buildInputs = [
             # Add additional build inputs here
-            pkgs.mold
-            pkgs.clang
-            pkgs.alsa-lib
-            pkgs.libudev-zero
+            pkgs.alsaLib
+            pkgs.systemd
           ] ++ lib.optionals pkgs.stdenv.isDarwin [
             # Additional darwin specific inputs can be set here
             pkgs.libiconv
           ];
 
           # Additional environment variables can be set directly
-          # MY_CUSTOM_VAR = "some value";
+          #MOLD = "${pkgs.mold}";
         };
 
         craneLibLLvmTools = craneLib.overrideToolchain
